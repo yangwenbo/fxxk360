@@ -16,16 +16,16 @@ static void SzFree(void *p, void *address) { p = p; free(address); }
 static ISzAlloc g_Alloc = { SzAlloc, SzFree };
 
 size_t get_filesize(const char *path){
-    size_t filesize = 0;
-    struct stat statbuff;
-    if (stat(path, &statbuff) < 0){
-        return filesize;
-    }
-    else{
-        filesize = statbuff.st_size;
-        printf("%lx\n", filesize);
-    }
-    return filesize;
+	size_t filesize = 0;
+	struct stat statbuff;
+	if (stat(path, &statbuff) < 0){	
+		return filesize;
+	}
+	else{
+		filesize = statbuff.st_size;
+		printf("%lx\n", filesize);
+	}
+	return filesize;
 }
 
 int writeFile(unsigned char *src, size_t len, const char* name){
@@ -90,13 +90,13 @@ int main(){
 			memcpy(decSrc, (const void*)(qhOff + 297), size);
 			//memset(&s, 0, 256);
 			RC4_KEY rc4_key;
-    		RC4_set_key(&rc4_key, 16, (key+4));
-    		RC4(&rc4_key, size, decSrc, decSrc);
+			RC4_set_key(&rc4_key, 16, (key+4));
+			RC4(&rc4_key, size, decSrc, decSrc);
 
-    		decDest = mmap(0, len, PROT_WRITE|PROT_READ, MAP_SHARED|MAP_ANONYMOUS, -1, 0);
+			decDest = mmap(0, len, PROT_WRITE|PROT_READ, MAP_SHARED|MAP_ANONYMOUS, -1, 0);
 
-    		v9 = LzmaDecode(decDest, (int*)&len, decSrc, &size, (int*)&dest, 5, 0, &status, &g_Alloc); 
-    		printf("%d", v9 );
+			v9 = LzmaDecode(decDest, (int*)&len, decSrc, &size, (int*)&dest, 5, 0, &status, &g_Alloc); 
+			printf("%d", v9 );
 
 
 			free(decSrc);
@@ -134,24 +134,6 @@ int main(){
 	
 	
 
-	
-
-
-
-
-	/*
-	printf("len %x\n", len);
-	printf("size %x\n", size);
-	int i = 0;
-	for (i = 0; i< 20; i++){
-		printf("%x ", key[i]);
-	}
-	printf("\n");
-	for (i = 0; i< 5; i++){
-		printf("%x ", dest[i]);
-	}
-	printf("\n");
-	*/
 
 	munmap(file,fsize); 
 	munmap(decDest,len);
