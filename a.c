@@ -96,6 +96,12 @@ int main(){
     free(src);
     free(rotextsrc);
 
+    
+
+
+
+
+
 
     
     
